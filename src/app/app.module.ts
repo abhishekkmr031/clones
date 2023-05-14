@@ -5,16 +5,22 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GoogleComponent } from './Pages/google/google.component';
 import { MicrosoftComponent } from './Pages/microsoft/microsoft.component';
+import { QuizGameComponent } from './Pages/quiz-game/quiz-game.component';
+import { FormsModule } from '@angular/forms';
+import { NgxWheelModule } from 'ngx-wheel';
 
 @NgModule({
   declarations: [
     AppComponent,
     GoogleComponent,
-    MicrosoftComponent
+    MicrosoftComponent,
+    QuizGameComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    NgxWheelModule
   ],
   providers: [],
   bootstrap: [AppComponent]
