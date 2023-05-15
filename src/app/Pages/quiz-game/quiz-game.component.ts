@@ -1,7 +1,8 @@
 import { ChangeDetectorRef, Component, DoCheck, OnInit, ViewChild } from '@angular/core';
 import { playerRecord } from './playerInterface';
 import { NgxWheelComponent, TextAlignment, TextOrientation } from 'ngx-wheel';
-import { ChangeDetectionStrategy } from '@angular/compiler';
+import { HttpClient } from "@angular/common/http";
+import { quizData } from './questionDataInterface';
 
 @Component({
   selector: 'app-quiz-game',
@@ -9,8 +10,10 @@ import { ChangeDetectionStrategy } from '@angular/compiler';
   styleUrls: ['./quiz-game.component.css']
 })
 
-export class QuizGameComponent implements OnInit, DoCheck {
+export class QuizGameComponent implements OnInit {
 
+  apiUrl: string = "assets/quiz2.json";
+  // apiUrl: string = "https://v2weatherapi20230514192323.azurewebsites.net/api/Quiz";
   chosenColor: string = "#e66465";
   name: string = "";
 
@@ -23,27 +26,49 @@ export class QuizGameComponent implements OnInit, DoCheck {
   textAlignment: TextAlignment = TextAlignment.OUTER;
 
   players: playerRecord[] = [];
+  quizCollections: quizData[] = [];
+  topics: string[] = [];
+  currentTopic: string = "";
 
-  constructor(private cf: ChangeDetectorRef) {
+  constructor(private httpClient: HttpClient) { }
+  // ngDoCheck(): void {
+  //   console.log("do check");
+  //   // console.log(this.players);
+  //   // this.refreshWheel();
+  //   // this.refreshWheel();
+  // }
+
+  ngOnInit(): void {
+    this.players.push({ id: 0, Name: "Player 0", Color: "#eeb4c2" });
     this.players.push({ id: 1, Name: "Player 1", Color: "#ff0000" });
     this.players.push({ id: 2, Name: "Player 2", Color: "#3cb371" });
     this.players.push({ id: 3, Name: "Player 3", Color: "#ffa500" });
     this.players.push({ id: 4, Name: "Player 4", Color: "#6a5acd" });
 
-  }
-  ngDoCheck(): void {
-    console.log("do check");
-    console.log(this.players);
-    this.refreshWheel();
-    this.refreshWheel();
+    this.prepareWheel();
+    this.getData();
   }
 
-  ngOnInit(): void {
-    console.log("ngoninit()");
-    this.prepareWheel()
-    this.cf.detectChanges();
+  getData() {
+    this.httpClient.get<quizData[]>(this.apiUrl).subscribe(data => {
+      this.quizCollections = data;
+      this.initializeQuizzes();
+
+    });
   }
 
+  initializeQuizzes() {
+    this.quizCollections.forEach(element => {
+      if (this.topics.findIndex(topic => topic == element.topic) == -1) {
+        this.topics.push(element.topic);
+      }
+    });
+  }
+
+  updateQuizTopic(topic: any, ddlj:any) {
+    console.log(ddlj)
+    this.currentTopic = topic.target.value;
+  }
 
   //#region ngx-wheel methods
 
@@ -56,7 +81,6 @@ export class QuizGameComponent implements OnInit, DoCheck {
   }
 
   prepareWheel() {
-    console.log("prepareWheel()");
     const colors = ['#FF0000', '#000000'];
     this.wheelContentItems = this.players.map((value) => ({
       fillStyle: value.Color,
@@ -68,11 +92,9 @@ export class QuizGameComponent implements OnInit, DoCheck {
   }
 
   async spinWheel() {
-
-    let prize: number = Math.floor(Math.random() * this.players.length);
+    this.idToLandOn = Math.floor(Math.random() * this.players.length);
     this.reset();
-    await this.spin(prize);
-
+    await this.spin();
   }
 
   reset() {
@@ -83,15 +105,25 @@ export class QuizGameComponent implements OnInit, DoCheck {
   }
 
   after() {
-    //this.players.splice(this.idToLandOn, 1);
-    //this.reorderCollectionIndex(this.namedata);
     console.log("prize winner : " + this.players[this.idToLandOn].Name);
     this.prepareWheel();
-    //this.displayQuestion();
+    this.displayQuestion();
   }
 
-  async spin(prize: any) {
-    this.idToLandOn = prize;
+  displayQuestion() {
+    if (this.currentTopic === "") {
+      let random: number = Math.floor(Math.random() * this.quizCollections.length);
+      console.log(this.quizCollections[random]);
+    } else {
+      let allQuestions = this.quizCollections.filter(value => value.topic === this.currentTopic);
+      let random: number = Math.floor(Math.random() * allQuestions.length);
+      console.log(allQuestions[random]);
+    }
+  }
+
+  async spin() {
+    console.log(this.idToLandOn);
+    console.log(this.players);
     await new Promise((resolve) => setTimeout(resolve, 1));
     this.wheel.spin();
   }
@@ -103,8 +135,8 @@ export class QuizGameComponent implements OnInit, DoCheck {
 
   onClickAddEntry() {
     this.players.push({ id: this.players.length + 1, Name: this.name, Color: this.chosenColor });
-    console.log("add players");
-    console.log(this.players);
+    this.refreshWheel();
+    this.refreshWheel();
   }
 
 }
