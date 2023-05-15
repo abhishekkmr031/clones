@@ -44,9 +44,9 @@
             </div>
         </div>
 
-        <select class="shadow-lg my-4 rounded-md" #ddl (change)="updateQuizTopic($event, ddl.value)">
-            <option value="default">----</option>
-            <option *ngFor="let topic of topics" [value]="topic">
+        <select class="shadow-lg my-4 rounded-md" #ddl [(ngModel)]="currentTopic">
+            <option default value="">-Select Quiz Topic-</option>
+            <option *ngFor="let topic of topics" name="fieldName">
                 {{topic}}
             </option>
         </select>
