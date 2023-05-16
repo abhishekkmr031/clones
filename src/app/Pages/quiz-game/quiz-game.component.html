@@ -8,12 +8,12 @@
 <div class="flex justify-end">
     <!-- QUIZ DISPLAY SECTION -->
     <!-- border-2 border-solid border-indigo-500 -->
-    <div class="w-1/3 p-4 mx-2 justify-left">
-        <div  *ngIf="currentTopic === '';else elseBlock">
+    <div class="w-1/3 px-4 pt-4 pb-4 mx-2 justify-left">
+        <div *ngIf="currentTopic === '';else elseBlock">
             <h1>Please select quiz topic!!</h1>
         </div>
-        <ng-template #elseBlock >
-            <h1>Quiz Topic Selected : <span class="underline text-blue-600"> {{currentTopic}} </span></h1>
+        <ng-template #elseBlock>
+            <h1>Quiz Topic Selected : <span class="underline text-black text-xl"> {{currentTopic}} </span></h1>
         </ng-template>
 
         <div *ngIf="currentQuestion!==''" class="my-3 p-2">
@@ -22,9 +22,9 @@
             </div>
         </div>
     </div>
-    
+
     <!--NGX WHEEL-->
-    <div class="w-fit p-2">
+    <div class="w-fit p-4 my-2">
         <div>
             <input type="button" (click)="spinWheel()" value="Spin Wheel"
                 class="m-2 p-2 border-2 border-solid border-black hover:bg-slate-300" />
@@ -41,7 +41,7 @@
     </div>
 
     <!--ENTRY SIDE-->
-    <div class="mx-2 p-4 w-1/3">
+    <div class="p-4 w-1/3">
         <div class="w-fit p-1 rounded-md border-2 border-solid border-black">
             <div class="flex">
                 <input type="text" [(ngModel)]="name"
@@ -58,8 +58,9 @@
             <div *ngFor="let p of players">
                 <span>
                     <!-- <label>{{p.Name}}</label> -->
-                    <input type="text" [(ngModel)]="p.Name"  class="h-8 w-40 my-2 mx-2 p-2 bg-slate-50 shadow-md rounded-md hover:border-black hover:border-1"/>
-                    <input type="color" value={{p.Color}} class="mx-2" [(ngModel)]="p.Color"/>
+                    <input type="text" [(ngModel)]="p.Name"
+                        class="h-8 w-40 my-2 mx-2 p-2 bg-slate-50 shadow-md rounded-md hover:border-black hover:border-1" />
+                    <input type="color" value={{p.Color}} class="mx-2" [(ngModel)]="p.Color" />
                 </span>
 
             </div>
@@ -73,3 +74,15 @@
         </select>
     </div>
 </div>
+
+<footer class="relative p-2 bg-slate-200 h-28 w-full -bottom-16">
+    <div>Footer</div>
+
+    <div class="flex justify-end">
+        <pre class="text-center">
+            Game By :<span class="hover:text-fuchsia-500"> akuma </span> 
+            <div><span>Contact Me : <a href="mailto:akumaroe@gmail.com"
+                class="text-blue-700 font-medium">akumaroe@gmail.com</a></span></div>
+        </pre>
+    </div>
+</footer>
