@@ -29,15 +29,10 @@ export class QuizGameComponent implements OnInit {
   quizCollections: quizData[] = [];
   topics: string[] = [];
   currentTopic: string = "";
+  currentQuestion: string = "";
 
   constructor(private httpClient: HttpClient) { }
-  // ngDoCheck(): void {
-  //   console.log("do check");
-  //   // console.log(this.players);
-  //   // this.refreshWheel();
-  //   // this.refreshWheel();
-  // }
-
+  
   ngOnInit(): void {
     this.players.push({ id: 0, Name: "Player 0", Color: "#eeb4c2" });
     this.players.push({ id: 1, Name: "Player 1", Color: "#ff0000" });
@@ -65,17 +60,13 @@ export class QuizGameComponent implements OnInit {
     });
   }
 
-  updateQuizTopic(topic: any, ddlj:any) {
-    console.log(ddlj)
-    this.currentTopic = topic.target.value;
-  }
-
   //#region ngx-wheel methods
 
-  refreshWheel() {
+  refreshGame() {
     //re-assign variables
     this.reset();
     this.prepareWheel();
+    this.currentQuestion = "";
 
     //this.reset();
   }
@@ -105,7 +96,7 @@ export class QuizGameComponent implements OnInit {
   }
 
   after() {
-    console.log("prize winner : " + this.players[this.idToLandOn].Name);
+    // console.log("prize winner : " + this.players[this.idToLandOn].Name);
     this.prepareWheel();
     this.displayQuestion();
   }
@@ -113,30 +104,25 @@ export class QuizGameComponent implements OnInit {
   displayQuestion() {
     if (this.currentTopic === "") {
       let random: number = Math.floor(Math.random() * this.quizCollections.length);
-      console.log(this.quizCollections[random]);
+      // console.log(this.quizCollections[random].topic);
+      this.currentQuestion = this.quizCollections[random].question;
     } else {
       let allQuestions = this.quizCollections.filter(value => value.topic === this.currentTopic);
       let random: number = Math.floor(Math.random() * allQuestions.length);
-      console.log(allQuestions[random]);
+      // console.log(allQuestions[random].topic);
+      this.currentQuestion = allQuestions[random].question;
     }
   }
 
   async spin() {
-    console.log(this.idToLandOn);
-    console.log(this.players);
     await new Promise((resolve) => setTimeout(resolve, 1));
     this.wheel.spin();
   }
 
-  onChangeColor(event: any) {
-    console.log(event);
-    console.log(event.tar)
-  }
-
   onClickAddEntry() {
     this.players.push({ id: this.players.length + 1, Name: this.name, Color: this.chosenColor });
-    this.refreshWheel();
-    this.refreshWheel();
+    this.refreshGame();
+    this.refreshGame();
   }
 
 }
