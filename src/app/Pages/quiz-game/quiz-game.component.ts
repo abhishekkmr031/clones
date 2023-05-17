@@ -30,32 +30,42 @@ export class QuizGameComponent implements OnInit {
   topics: string[] = [];
   currentTopic: string = "";
   currentQuestion: string = "";
+  repeatPlayer: boolean = true;
+  repeatQuestion: boolean = true;
 
   constructor(private httpClient: HttpClient) { }
-  
+
   ngOnInit(): void {
-    this.players.push({ id: 0, Name: "Player 0", Color: "#eeb4c2" });
-    this.players.push({ id: 1, Name: "Player 1", Color: "#ff0000" });
-    this.players.push({ id: 2, Name: "Player 2", Color: "#3cb371" });
-    this.players.push({ id: 3, Name: "Player 3", Color: "#ffa500" });
-    this.players.push({ id: 4, Name: "Player 4", Color: "#6a5acd" });
+    this.players.push({ id: 0, Name: "Player 0", Color: "#eeb4c2", flag: false });
+    this.players.push({ id: 1, Name: "Player 1", Color: "#ff0000", flag: false });
+    this.players.push({ id: 2, Name: "Player 2", Color: "#3cb371", flag: false });
+    this.players.push({ id: 3, Name: "Player 3", Color: "#ffa500", flag: false });
+    this.players.push({ id: 4, Name: "Player 4", Color: "#6a5acd", flag: false });
 
     this.prepareWheel();
     this.getData();
   }
 
-  onFocus(){
+  onChangeRepeatPlayer() {
+    this.repeatPlayer = !this.repeatPlayer;
+  }
+
+  onChangeRepeatQuestion() {
+    this.repeatQuestion = !this.repeatQuestion;
+  }
+
+  onFocus() {
     let mainmessage = document.getElementById("#mainmessage");
     let initialmessage = document.getElementById("#initialmessage");
 
-    if(mainmessage !== null){
-      if(mainmessage.style.display === "block"){
+    if (mainmessage !== null) {
+      if (mainmessage.style.display === "block") {
         mainmessage.style.display = "none";
-        if(initialmessage !== null) initialmessage.style.display = "block";
+        if (initialmessage !== null) initialmessage.style.display = "block";
       }
-      else{
+      else {
         mainmessage.style.display = "block";
-        if(initialmessage !== null) initialmessage.style.display = "none";
+        if (initialmessage !== null) initialmessage.style.display = "none";
       }
     }
   }
@@ -112,22 +122,45 @@ export class QuizGameComponent implements OnInit {
   }
 
   after() {
-    // console.log("prize winner : " + this.players[this.idToLandOn].Name);
     this.prepareWheel();
-    this.displayQuestion();
+    this.QuestionSelectionController();
   }
 
-  displayQuestion() {
-    if (this.currentTopic === "") {
-      let random: number = Math.floor(Math.random() * this.quizCollections.length);
-      // console.log(this.quizCollections[random].topic);
-      this.currentQuestion = this.quizCollections[random].question;
+  QuestionSelectionController() {
+    if (this.repeatQuestion) {
+      this.displayQuestion(this.quizCollections);
     } else {
-      let allQuestions = this.quizCollections.filter(value => value.topic === this.currentTopic);
+      let newCollection = this.quizCollections.filter(value => value.flag === undefined);
+      if (newCollection.length === 0) {
+        confirm("REFRESH GAME!!!. You have reached to end.");
+      }
+      else {
+        let ques = this.displayQuestion(newCollection);
+        if (ques !== "") this.markQuestionRead(ques);
+      }
+    }
+  }
+
+  displayQuestion(collection: quizData[]): string {
+    if (this.currentTopic === "") {
+      let random: number = Math.floor(Math.random() * collection.length);
+      this.currentQuestion = collection[random].question;
+
+    } else {
+      let allQuestions = collection.filter(value => value.topic === this.currentTopic);
+      if (allQuestions.length === 0) {
+        confirm('No Quiz left in "' + this.currentTopic + '". Please select another topic');
+        return "";
+      }
       let random: number = Math.floor(Math.random() * allQuestions.length);
-      // console.log(allQuestions[random].topic);
       this.currentQuestion = allQuestions[random].question;
     }
+    return this.currentQuestion;
+  }
+
+  markQuestionRead(ques: string) {
+    let index = this.quizCollections.findIndex(entry => entry.question === ques)
+    this.quizCollections[index].flag = true;
   }
 
   async spin() {
@@ -136,7 +169,7 @@ export class QuizGameComponent implements OnInit {
   }
 
   onClickAddEntry() {
-    this.players.push({ id: this.players.length + 1, Name: this.name, Color: this.chosenColor });
+    this.players.push({ id: this.players.length + 1, Name: this.name, Color: this.chosenColor, flag: false });
     this.refreshGame();
     this.refreshGame();
   }
