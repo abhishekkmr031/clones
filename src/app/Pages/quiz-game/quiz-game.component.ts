@@ -36,6 +36,8 @@ export class QuizGameComponent implements OnInit {
   constructor(private httpClient: HttpClient) { }
 
   ngOnInit(): void {
+    this.showModal();
+    
     this.players.push({ id: 0, Name: "Player 0", Color: "#eeb4c2", flag: false });
     this.players.push({ id: 1, Name: "Player 1", Color: "#ff0000", flag: false });
     this.players.push({ id: 2, Name: "Player 2", Color: "#3cb371", flag: false });
@@ -44,6 +46,40 @@ export class QuizGameComponent implements OnInit {
 
     this.prepareWheel();
     this.getData();
+  }
+
+  showModal(){
+    let modal = document.getElementById("#modal");
+    if(modal!==null) modal.style.display = "flex";
+
+    let quizSection = document.getElementById("#quizSection");
+    if(quizSection!==null) quizSection.style.display = "none";
+
+    let wheel = document.getElementById("#wheel");
+    if(wheel!==null) wheel.style.display = "none";
+
+    let entry = document.getElementById("#entry");
+    if(entry!==null) entry.style.display = "none";
+
+    let footer = document.getElementById("#footer");
+    if(footer!==null) footer.style.display = "none";
+  }
+  
+  closeModal(){
+    let modal = document.getElementById("#modal");
+    if(modal!==null) modal.style.display = "none";
+
+    let quizSection = document.getElementById("#quizSection");
+    if(quizSection!==null) quizSection.style.display = "block";
+
+    let wheel = document.getElementById("#wheel");
+    if(wheel!==null) wheel.style.display = "block";
+
+    let entry = document.getElementById("#entry");
+    if(entry!==null) entry.style.display = "block";
+
+    let footer = document.getElementById("#footer");
+    if(footer!==null) footer.style.display = "block";
   }
 
   onChangeRepeatPlayer() {
