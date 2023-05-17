@@ -44,6 +44,22 @@ export class QuizGameComponent implements OnInit {
     this.getData();
   }
 
+  onFocus(){
+    let mainmessage = document.getElementById("#mainmessage");
+    let initialmessage = document.getElementById("#initialmessage");
+
+    if(mainmessage !== null){
+      if(mainmessage.style.display === "block"){
+        mainmessage.style.display = "none";
+        if(initialmessage !== null) initialmessage.style.display = "block";
+      }
+      else{
+        mainmessage.style.display = "block";
+        if(initialmessage !== null) initialmessage.style.display = "none";
+      }
+    }
+  }
+
   getData() {
     this.httpClient.get<quizData[]>(this.apiUrl).subscribe(data => {
       this.quizCollections = data;

@@ -1,6 +1,8 @@
 <nav class="flex h-12 p-2 bg-slate-200 justify-end">
-    <div class="absolute p-1 left-5 shadow-lg text-center font-sans text-orange-500">
-        Quizzy Game
+    <div >
+        <div class="logo absolute p-1 left-5 shadow-lg text-center font-sans text-orange-500">
+            Quizzy Game
+        </div>
     </div>
     <ul class="mx-2 shadow-md text-center w-20 px-3 text-lg hover:bg-slate-50">Home</ul>
     <ul class="mx-2 text-center w-20 px-3 text-lg shadow-md hover:bg-slate-50">Abouts</ul>
@@ -13,7 +15,7 @@
             <h1>Please select quiz topic!!</h1>
         </div>
         <ng-template #elseBlock>
-            <h1>Quiz Topic Selected : <span class="underline text-black text-xl"> {{currentTopic}} </span></h1>
+            <h1>Quiz Topic Selected : <span class="underline decoration-2 text-black text-xl"> {{currentTopic}} </span></h1>
         </ng-template>
 
         <div *ngIf="currentQuestion!==''" class="my-3 p-2">
@@ -21,12 +23,24 @@
                 {{currentQuestion}}
             </div>
         </div>
+        <div (click)="onFocus()" class="absolute block p-1 bottom-36 h-40 w-96 border-4 border-solid border-blue-100 shadow-2xl shadow-yellow-400">
+            <div id="#mainmessage" class="hidden ml-2 text-lg font-sans">
+                <div class="flex justify-center text-xl font-bold">Rules</div>
+                <li>Select a topic.</li>
+                <li>Update Color of your choice.</li>
+                <li>Add Players.</li>
+                <li>Play Game</li>
+            </div>
+            <div id="#initialmessage" class="flex text-2xl font-bold justify-center animate-bounce my-2">
+                Click Here For Rules ! !
+                </div>
+        </div>
     </div>
 
     <!--NGX WHEEL-->
     <div class="w-fit p-4 my-2">
         <div>
-            <input type="button" (click)="spinWheel()" value="Spin Wheel"
+            <input type="button" (click)="spinWheel()" value="Play Game"
                 class="m-2 p-2 border-2 border-solid border-black hover:bg-slate-300" />
             <input type="button" (click)="refreshGame()" value="Refresh Game"
                 class="m-2 p-2 border-2 border-solid border-black hover:bg-slate-300" />
