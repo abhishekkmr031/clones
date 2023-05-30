@@ -10,9 +10,15 @@ import { FormsModule } from '@angular/forms';
 import { NgxWheelModule } from 'ngx-wheel';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalComponent } from './Pages/modal/modal.component';
+import { BackgroundComponent } from './Pages/background/background.component';
+import { StreetlightComponent } from './Pages/streetlight/streetlight.component';
+import { CssPractise1Component } from './Pages/css-practise1/css-practise1.component';
+import { NavbarComponent } from './Pages/navbar/navbar.component';
+import { FooterComponent } from './Pages/footer/footer.component';
+import { SidebarComponent } from './Pages/sidebar/sidebar.component';
 
 @NgModule({
-  declarations: [ AppComponent, GoogleComponent, MicrosoftComponent, QuizGameComponent, ModalComponent],
+  declarations: [ AppComponent, GoogleComponent, MicrosoftComponent, QuizGameComponent, ModalComponent, BackgroundComponent, StreetlightComponent, CssPractise1Component, NavbarComponent, FooterComponent, SidebarComponent],
   imports: [BrowserModule, AppRoutingModule, FormsModule, NgxWheelModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent]

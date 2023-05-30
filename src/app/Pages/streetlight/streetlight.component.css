@@ -1,0 +1,67 @@
+/* .whitestripes{
+    position:relative;
+    height:20px;
+    width:60px;
+    margin: 0 10px 0 10px;
+    background-color: white;
+    align-items: center;
+}
+
+.pole{
+    position: relative;
+    top: -80px;
+    left: 40px;
+    background-color: rgb(11, 11, 11);
+    width: 10px;
+    height:80px;
+    transform: skewX(-40deg);
+}
+
+.light{
+    position: relative;
+    top: -110px;
+    left: 70px;
+    height:15px;
+    width: 40px;
+    background-color: black;
+    transition: 1s;
+}
+
+.light:hover{
+    background-color: rgb(255, 196, 0);
+    box-shadow: 120px rgb(255, 230, 0);
+}
+
+.road:hover{
+    background-color: #0f0;
+    box-shadow: 120px #0f0;
+}
+
+.road{
+    position:relative;
+    top: 100px;
+    left: 100px;
+    height: 120px;
+    width: 400px;
+    background: #000; 
+    display: flex;
+    align-items: center;
+}
+
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    background: black;
+    height: 800px;
+    width: 100%;
+}
+
+body {
+    margin: 0;
+    line-height: inherit;
+    background: darkgrey;
+} */

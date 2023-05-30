@@ -1,0 +1,94 @@
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.sidebar{
+    font-size: 62.5%;
+    height: -5rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: slategrey;
+}
+
+.fa-bars{
+    font-size: 1.5rem;
+}
+.sidebar p,a,li{
+    font-size: 1.7rem;
+    color: #20262E;
+    text-decoration: none;
+}
+.navbar{
+    position: absolute;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    transform: translateX(100%);
+    transition: all .45s linear;
+}
+.navbar-first{
+    width: 10%;
+    max-width: 25rem;
+    min-width: 15rem;
+    background-color: #655DBB;
+    
+}
+
+.navbar-second{
+    width: 93%;
+    background-color: #3E54AC;
+}
+
+.navbar-list{
+    width: 90%;
+    background-color: #ECF2FF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.navbar-list a{
+    font-size: 2.4rem;
+    text-transform: uppercase;
+}
+
+.navbar-list a:hover{
+    text-decoration: underline;
+    color: #3E54AC;
+}
+
+.active{
+    transform: translateX(0);
+}
+
+.navbar-list ul{
+    display: flex;
+    flex-direction: column;
+}
+
+.fa-xmark{
+    position: absolute;
+    top: 10%;
+    right: 15%;
+    font-size: x-large;
+}
+
+.work_expansion{
+    overflow: hidden;
+}
+
+.expand{
+    transform: translateX(120%);
+    transition: 1s;
+}
+.expand a{
+    font-size: .7rem;
+}
+
+.expand-active{
+    transform: translateX(0);
+}

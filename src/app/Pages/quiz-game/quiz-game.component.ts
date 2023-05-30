@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, DoCheck, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, DoCheck, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { playerRecord } from './playerInterface';
 import { NgxWheelComponent, TextAlignment, TextOrientation } from 'ngx-wheel';
 import { HttpClient } from "@angular/common/http";
@@ -7,6 +7,7 @@ import { quizData } from './questionDataInterface';
 @Component({
   selector: 'app-quiz-game',
   templateUrl: './quiz-game.component.html',
+  changeDetection:ChangeDetectionStrategy.OnPush,
   styleUrls: ['./quiz-game.component.css']
 })
 
@@ -20,7 +21,7 @@ export class QuizGameComponent implements OnInit {
   //wheel config
   title = 'wheel-game';
   @ViewChild(NgxWheelComponent, { static: false }) wheel: any;
-  idToLandOn: any;
+  idToLandOn: any = 1;
   wheelContentItems: any[] = [];
   textOrientation: TextOrientation = TextOrientation.HORIZONTAL;
   textAlignment: TextAlignment = TextAlignment.OUTER;
@@ -37,49 +38,62 @@ export class QuizGameComponent implements OnInit {
 
   ngOnInit(): void {
     this.showModal();
-    
-    this.players.push({ id: 0, Name: "Player 0", Color: "#eeb4c2", flag: false });
-    this.players.push({ id: 1, Name: "Player 1", Color: "#ff0000", flag: false });
-    this.players.push({ id: 2, Name: "Player 2", Color: "#3cb371", flag: false });
-    this.players.push({ id: 3, Name: "Player 3", Color: "#ffa500", flag: false });
-    this.players.push({ id: 4, Name: "Player 4", Color: "#6a5acd", flag: false });
+    // this.showWinner();
+
+    this.players.push({ id: 0, Name: "Sherlock", Color: "#eeb4c2", flag: false });
+    this.players.push({ id: 1, Name: "Zorro", Color: "#ff0000", flag: false });
+    this.players.push({ id: 2, Name: "Scooby", Color: "#3cb371", flag: false });
+    this.players.push({ id: 3, Name: "Uncle Bob", Color: "#ffa500", flag: false });
+    this.players.push({ id: 4, Name: "Ritchie", Color: "#6a5acd", flag: false });
 
     this.prepareWheel();
     this.getData();
   }
 
-  showModal(){
+  showModal() {
     let modal = document.getElementById("#modal");
-    if(modal!==null) modal.style.display = "flex";
+    if (modal !== null) modal.style.display = "flex";
 
-    let quizSection = document.getElementById("#quizSection");
-    if(quizSection!==null) quizSection.style.display = "none";
-
-    let wheel = document.getElementById("#wheel");
-    if(wheel!==null) wheel.style.display = "none";
-
-    let entry = document.getElementById("#entry");
-    if(entry!==null) entry.style.display = "none";
-
-    let footer = document.getElementById("#footer");
-    if(footer!==null) footer.style.display = "none";
+    this.hideElements();
   }
-  
-  closeModal(){
-    let modal = document.getElementById("#modal");
-    if(modal!==null) modal.style.display = "none";
 
+
+  closeModal() {
+    let modal = document.getElementById("#modal");
+    if (modal !== null) modal.style.display = "none";
+
+    let winnerBoard = document.getElementById("#winnerBoard");
+    if (winnerBoard !== null) winnerBoard.style.display = "none";
+
+    this.displayElements();
+  }
+
+  hideElements() {
     let quizSection = document.getElementById("#quizSection");
-    if(quizSection!==null) quizSection.style.display = "block";
+    if (quizSection !== null) quizSection.style.display = "none";
 
     let wheel = document.getElementById("#wheel");
-    if(wheel!==null) wheel.style.display = "block";
+    if (wheel !== null) wheel.style.display = "none";
 
     let entry = document.getElementById("#entry");
-    if(entry!==null) entry.style.display = "block";
+    if (entry !== null) entry.style.display = "none";
 
     let footer = document.getElementById("#footer");
-    if(footer!==null) footer.style.display = "block";
+    if (footer !== null) footer.style.display = "none";
+  }
+
+  displayElements() {
+    let quizSection = document.getElementById("#quizSection");
+    if (quizSection !== null) quizSection.style.display = "block";
+
+    let wheel = document.getElementById("#wheel");
+    if (wheel !== null) wheel.style.display = "block";
+
+    let entry = document.getElementById("#entry");
+    if (entry !== null) entry.style.display = "block";
+
+    let footer = document.getElementById("#footer");
+    if (footer !== null) footer.style.display = "block";
   }
 
   onChangeRepeatPlayer() {
@@ -122,6 +136,13 @@ export class QuizGameComponent implements OnInit {
     });
   }
 
+  showWinner() {
+    let winnerBoard = document.getElementById("#winnerBoard");
+    if (winnerBoard !== null) winnerBoard.style.display = "flex";
+
+    this.hideElements();
+  }
+
   //#region ngx-wheel methods
 
   refreshGame() {
@@ -160,6 +181,8 @@ export class QuizGameComponent implements OnInit {
   after() {
     this.prepareWheel();
     this.QuestionSelectionController();
+
+    this.showWinner();
   }
 
   QuestionSelectionController() {
@@ -206,6 +229,7 @@ export class QuizGameComponent implements OnInit {
 
   onClickAddEntry() {
     this.players.push({ id: this.players.length + 1, Name: this.name, Color: this.chosenColor, flag: false });
+    // this.players = [... this.players, { id: this.players.length + 1, Name: this.name, Color: this.chosenColor, flag: false }];
     this.refreshGame();
     this.refreshGame();
   }

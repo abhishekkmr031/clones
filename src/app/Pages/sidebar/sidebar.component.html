@@ -1,0 +1,38 @@
+<section class="sidebar">
+    <div class="logo">
+        <a href="#">Logo</a>
+    </div>
+
+    <div class="">
+        <i (click)="onClickOpenSidebar()" class="fa-solid fa-bars"></i>
+        <div class="menu">
+            <div class="navbar navbar-first">
+                <div class="navbar navbar-second">
+                    <div class="navbar navbar-list">
+                        <i (click)="onClickCloseSidebar()" class="fa-sharp fa-solid fa-xmark"></i>
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li class="work_expansion"><a (click)="showWorkList()">Work</a>
+                                <div class="expand">
+                                    <ul>
+                                        <li><a routerLink="/google" routerLinkActive="active" ariaCurrentWhenActive="page">Google</a></li>
+                                        <li><a routerLink="/css-practise" routerLinkActive="active" ariaCurrentWhenActive="page">CSS - Practise</a></li>
+                                        <li><a routerLink="/background" routerLinkActive="active" ariaCurrentWhenActive="page">CSS Background</a></li>
+                                        <li><a routerLink="/game" routerLinkActive="active" ariaCurrentWhenActive="page">Quizzy Game</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+</section>
+<main>
+    <router-outlet></router-outlet>
+</main>
