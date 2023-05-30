@@ -12,6 +12,7 @@ export class SidebarComponent implements OnInit {
   imgId:number = 1;
   url:string =this.baseUrl +  this.images[this.imgId];
   worklist_display:boolean = true;
+  navbar_display:boolean = false;
 
 
   onSubmit(){
@@ -36,6 +37,12 @@ export class SidebarComponent implements OnInit {
     navlist.forEach(element => {
       if(element!==null) element.classList.add('active');
     });
+
+    this.navbar_display = !this.navbar_display;
+
+    if(!this.navbar_display) this.onClickCloseSidebar();
+
+    
   }
 
   onClickCloseSidebar(){
