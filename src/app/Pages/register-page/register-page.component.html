@@ -1,0 +1,39 @@
+<section class="flex justify-center w-full h-screen bg-cyan-300">
+    <div class="registrationForm bg-white shadow-inner shadow-cyan-200 h-fit w-2/3 max-w-fit mt-36 p-6 rounded-3xl">
+
+        <h1 class="text-center text-xl font-semibold">Registration Form</h1>
+
+        <div class="flex mt-5 items-center justify-between">
+            <label class="text-xl">UserName</label>
+            <input type="text" [(ngModel)]="name" title="UserName required" class="rounded-lg h-8 w-1/2" />
+        </div>
+
+        <div class="flex mt-5 items-center justify-between">
+            <label class="text-xl">Name</label>
+            <input type="text" [(ngModel)]="userName" class=" ml-5 rounded-lg h-8 w-1/2" />
+        </div>
+
+        <div class="flex mt-5 items-center justify-between">
+            <label class="text-xl">Email</label>
+            <input type="text" [(ngModel)]="email" class=" ml-5 rounded-lg h-8 w-1/2" />
+        </div>
+
+        <div class="flex mt-5 items-center justify-between">
+            <label class="text-xl">Password</label>
+            <input type="text" [(ngModel)]="password" class=" ml-5 rounded-lg h-8 w-1/2" />
+        </div>
+
+        <div class="flex mt-5 items-center justify-between">
+            <label class="text-xl">Confirm Password</label>
+            <input type="text" [(ngModel)]="confirmPassword" class=" ml-5 rounded-lg h-8 w-1/2"
+                (change)="arePasswordsEqual()" />
+        </div>
+        <div>
+            <p id="passwordMessage" class="hidden text-red-500">Password Didn't matched</p>
+        </div>
+
+        <div class="flex mt-5 items-center justify-center">
+            <input type="button" (click)="OnRegister()" class="text-xl bg-slate-800 text-white py-2 px-6 rounded-md hover:bg-slate-500" />
+        </div>
+    </div>
+</section>

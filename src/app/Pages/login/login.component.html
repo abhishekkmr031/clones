@@ -1,0 +1,33 @@
+<section class="flex justify-center w-full h-screen bg-indigo-500">
+
+    <div class="loginContainer mt-8 p-6 shadow-lg bg-white shadow-slate-100 h-fit w-96 rounded-lg">
+        <div class="text-2xl font-semibold text-center">
+            <i class="fa-solid fa-user fa-lg"></i>
+            Login Form
+        </div>
+
+        <form (ngSubmit)="OnSubmit()">
+            <label class="block mt-3 text-lg font-medium">UserName</label>
+            <input type="text" class="w-full mt-3" [(ngModel)]="username" title="Enter your username"
+              name="username"  placeholder="Username..." />
+
+            <label class="block mt-3 text-lg font-medium">Password</label>
+            <input type="password" class="w-full mt-3" [(ngModel)]="password" title="Enter your password"
+             name="password"   placeholder="password..." required="" />
+
+            <div class="flex items-center justify-between mt-6 mb-3">
+                <input type="button" value="Login"
+                    class="text-center font-medium bg-slate-100 px-4 py-2 rounded-lg hover:bg-slate-300"
+                   (click)="OnSubmit()" />
+                <ul>
+                    <a class="inline-block align-baseline font-bold text-sm hover:text-blue-800" href="#">Forgot
+                        Password?</a>
+                    <a class="inline-block align-baseline font-bold text-sm hover:text-blue-800" href="/register">Register</a>
+                </ul>
+            </div>
+        </form>
+
+
+    </div>
+
+</section>

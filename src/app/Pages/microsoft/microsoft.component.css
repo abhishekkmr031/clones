@@ -1,0 +1,27 @@
+.stripe {
+    display: flex;height: 24px;width: 240px;align-items: center;
+}
+
+.warn-messages {
+    background-color: #ffff00;
+}
+
+.verbose-messages {
+    background-color: white;
+}
+
+.debug-messages {
+    background-color: #75b6e7;
+}
+
+.error-messages {
+    background-color: #EF5350;
+}
+
+.assert-messages {
+    background-color: #AB47BC;
+}
+
+.info-messages{
+    background-color: #64DD17;
+}

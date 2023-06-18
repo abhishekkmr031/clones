@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { GoogleComponent } from './Pages/google/google.component';
 
 @Component({
   selector: 'app-root',

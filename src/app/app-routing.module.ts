@@ -4,11 +4,22 @@ import { GoogleComponent } from './Pages/google/google.component';
 import { BackgroundComponent } from './Pages/background/background.component';
 import { CssPractise1Component } from './Pages/css-practise1/css-practise1.component';
 import { QuizGameComponent } from './Pages/quiz-game/quiz-game.component';
+import { SidebarComponent } from './Pages/sidebar/sidebar.component';
+import { LoginComponent } from './Pages/login/login.component';
+import { RegisterPageComponent } from './Pages/register-page/register-page.component';
 
 const routes: Routes = [
   {
-    path:'',
-    component:QuizGameComponent
+    path:'login',
+    component:LoginComponent
+  },
+  {
+    path:'register',
+    component:RegisterPageComponent
+  },
+  {
+    path:'home',
+    component:SidebarComponent
   },
   {
     path:'google',

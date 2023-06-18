@@ -1,6 +1,6 @@
 module.exports = {
   prefix: '',
-  purge: {
+  content: {
     content: [
       './src/**/*.{html,ts}',
     ]

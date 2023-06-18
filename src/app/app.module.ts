@@ -16,9 +16,13 @@ import { CssPractise1Component } from './Pages/css-practise1/css-practise1.compo
 import { NavbarComponent } from './Pages/navbar/navbar.component';
 import { FooterComponent } from './Pages/footer/footer.component';
 import { SidebarComponent } from './Pages/sidebar/sidebar.component';
+import { LoginComponent } from './Pages/login/login.component';
+import { RegisterPageComponent } from './Pages/register-page/register-page.component';
 
 @NgModule({
-  declarations: [ AppComponent, GoogleComponent, MicrosoftComponent, QuizGameComponent, ModalComponent, BackgroundComponent, StreetlightComponent, CssPractise1Component, NavbarComponent, FooterComponent, SidebarComponent],
+  declarations: [ AppComponent, GoogleComponent, MicrosoftComponent, QuizGameComponent, ModalComponent,
+     BackgroundComponent, StreetlightComponent, CssPractise1Component, NavbarComponent, FooterComponent,
+     SidebarComponent, LoginComponent, RegisterPageComponent],
   imports: [BrowserModule, AppRoutingModule, FormsModule, NgxWheelModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent]
